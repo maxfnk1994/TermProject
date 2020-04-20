@@ -1,4 +1,4 @@
-# `TermProject: Dashboard in shiny` ![shiny-logo, width = 2cm, height = 2cm](/shiny-logo.png)
+# `TermProject: Dashboard in shiny` ![shiny-logo](/shiny-logo.png)
 This repository is an application to visualize IMF data in a strucured way using shiny.
 
 <br>
