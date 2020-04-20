@@ -1,4 +1,4 @@
-# `TermProject` ![logo_radar](man/figures/radar.png)
+# `TermProject` ![shiny-logo](/shiny-logo.png)
 RadaR is an application for intuitive, rapid and reproducible quality of care pattern analysis of infectious patients.
 <br>
 <br>
