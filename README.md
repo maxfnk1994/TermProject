@@ -1,7 +1,5 @@
 # `TermProject: Dashboard in shiny` ![shiny-logo](/shiny-logo.png)
 This repository is an application to visualize IMF data in a strucured way using shiny.
-
-<br>
 <br>
 See a running example [here](https://max-franke.shinyapps.io/IMF_analysis/).
 
@@ -88,4 +86,4 @@ This dashboard can be run locally (for example: [Shiny server](https://www.rstud
 
 ## Author
 
-This dashboard was created at the School of Science of the [St. Thomas University](http://www.stu.edu) by Max Franke in the class CIS-546 DATA VISUALIZATION
+This dashboard was created at the School of Science of the [St. Thomas University](http://www.stu.edu) by Max Franke in the class CIS-546 DATA VISUALIZATION.
