@@ -35,9 +35,9 @@ This dashboard works with standard csv-files (.csv), which were extracted from t
 | Country/Series-specific Notes | Notes |
 | Years | 1980 - 2020  |
 
-These data will be loaded, merged, and transformed for analysis upon start of the dashboard
-
 ## Story of dashboard
+
+The datasets show years as different columns and the dimensions are wrong, which means that data wrangling and processing has to be done.
 
 The dashboard is structured into three areas (channels):
 
