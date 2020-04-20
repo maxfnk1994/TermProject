@@ -1,4 +1,4 @@
-# `TermProject` ![shiny-logo](/shiny-logo.png)
+# `TermProject` ![shiny-logo, width = 2cm, height = 2cm](/shiny-logo.png)
 RadaR is an application for intuitive, rapid and reproducible quality of care pattern analysis of infectious patients.
 <br>
 <br>
