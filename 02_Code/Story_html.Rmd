@@ -234,14 +234,14 @@ names(totalInvestment) <- c("WEO.Subject.Code", "Country", "Year", "TotalInvestm
 ```
 
 ```{r, echo=FALSE, warning=FALSE}
-ggplot(data = subset(totalInvestment, Country %in% c("Germany", "United States")), mapping = aes(x = Country, y = TotalInvestment)) +
+ggplotly(ggplot(data = subset(totalInvestment, Country %in% c("Germany", "United States")), mapping = aes(x = Country, y = TotalInvestment)) +
  geom_violin(outlier.size = 0, alpha = .3, size = 0.2) +
   geom_point(mapping = aes(color = Country), alpha = .2, position = "jitter") +
   coord_flip() +
   guides(fill = FALSE) +
   labs(title = "Distribution of the Total Investments by country",
        y = "Total Investments",
-       x = NULL)
+       x = NULL))
 ```
 
 Interpretation
