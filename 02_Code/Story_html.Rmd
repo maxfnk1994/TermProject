@@ -340,7 +340,7 @@ These two graphs will be added to the dashboard in the way that the User can cho
 Unemployment <- melt(subset(gdp, WEO.Subject.Code == "LUR")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
 Unemployment$value <- as.numeric(levels(Unemployment$value)[Unemployment$value])
 names(Unemployment) <- c("WEO.Subject.Code", "Country", "Year", "Unemployment")
-Unemployment
+Unemployment <- Unemployment %>% drop_na()
 ```
 
 
