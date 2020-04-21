@@ -54,24 +54,20 @@ In the first area, the following variables are included:
 <br>
 In the second area, the following variables are included:
 
-Volume of imports of goods and services
-
-Volume of exports of goods and services
-
-Volume of Imports of goods
-
-Volume of exports of goods
+ - Volume of imports of goods and services
+ - Volume of exports of goods and services
+ - Volume of Imports of goods
+ - Volume of exports of goods
 <br>
 In the third area, the following variables are included:
 
-Unemployment rate
-
-Employment
-
-Population
-
-Current account balance
+ - Unemployment rate
+ - Employment
+ - Population
+ - Current account balance
+ 
 <br>
+
 The dashboard can be found with the following link:
 
 https://max-franke.shinyapps.io/IMF_analysis/
