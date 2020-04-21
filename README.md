@@ -47,13 +47,10 @@ The dashboard is structured into three areas (channels):
 <br>
 In the first area, the following variables are included:
 
-Gross domestic product, constant prices
-
-Gross domestic product, constant prices (percent changes)
-
-Inflation, average consumer prices
-
-Total investment
+ - Gross domestic product, constant prices
+ - Gross domestic product, constant prices (percent changes)
+ - Inflation, average consumer prices
+ - Total investment
 <br>
 In the second area, the following variables are included:
 
