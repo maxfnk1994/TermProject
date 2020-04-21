@@ -1,4 +1,4 @@
-# `TermProject: Dashboard in shiny` ![shiny-logo](/shiny-logo.png)
+# `TermProject: Dashboard in ` ![shiny-logo](/shiny-logo.png)
 This repository is an application to visualize IMF data in a strucured way using shiny.
 <br>
 See a running example [here](https://max-franke.shinyapps.io/IMF_analysis/).
@@ -44,27 +44,37 @@ The dashboard is structured into three areas (channels):
 2. Trade
 
 3. People
-
+<br>
 In the first area, the following variables are included:
 
 Gross domestic product, constant prices
+
 Gross domestic product, constant prices (percent changes)
+
 Inflation, average consumer prices
+
 Total investment
+<br>
 In the second area, the following variables are included:
 
 Volume of imports of goods and services
+
 Volume of exports of goods and services
+
 Volume of Imports of goods
+
 Volume of exports of goods
+<br>
 In the third area, the following variables are included:
 
 Unemployment rate
-Employment
-Population
-Current account balance
-In the following chapters, the visualization will be produced, which will be implemented into the dashboard with shiny.
 
+Employment
+
+Population
+
+Current account balance
+<br>
 The dashboard can be found with the following link:
 
 https://max-franke.shinyapps.io/IMF_analysis/
@@ -75,7 +85,6 @@ This graph shows the GDP development, divided by the European Union, Middle East
 
 Also, this graph is the first entry to the dashboard later on. The user will see an animated graph as an eyecatcher, which shows the differences between these regions over the years.
 
-In the next section, inflation is plotted comparably. This graph will be plotted next to the GDP graph. So, the user can compare the development of Inflation and GDP over the years by animated graphs.
 
 ![gdp](/03_Images/01_NationalAccount/GDP.gif)
 
