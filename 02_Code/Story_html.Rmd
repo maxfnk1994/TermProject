@@ -123,7 +123,6 @@ In the third area, the following variables are included:
  - Unemployment rate
  - Employment
  - Population
- - Current account balance
 
 In the following chapters, the visualization will be produced, which will be implemented into the dashboard with shiny.
 
@@ -322,14 +321,14 @@ ggplotly(ggplot(data = subset(EX_goods, Country %in% c("Germany", "United States
  geom_col(alpha = .3, position = "dodge2") +
   coord_flip() +
   guides(fill = FALSE) +
-  labs(title = "Volume of exports of goods and services",
+  labs(title = "Volume of exports of goods",
        x = "Percent change of volume of exports",
        y = NULL))
 ```
 
 Interpretation
 
-These two graphs will be added to the dashboard in the way that the User can chose via a action button between Volume of Goods and Volume of Goods and Services. There is sometimes a slight difference, so more informations are provided for the User.
+These two graphs will be added to the dashboard in the way that the User can choose via an action button between the Volume of Goods and Volume of Goods and Services. There is sometimes a slight difference, so more information is provided for the User.
 
 ## People {.tabset .tabset-dropdown}
 
@@ -367,7 +366,7 @@ names(Employment) <- c("WEO.Subject.Code", "Country", "Year", "Empl")
 ```
 
 ```{r, echo=FALSE, warning=FALSE}
-ggplotly(ggplot(data = subset(Employment, Country == c("Germany", "United States")), mapping = aes(x = Year, y = Empl, color = Country)) +
+ggplotly(ggplot(data = subset(Employment, Country %in% c("Germany", "United States")), mapping = aes(x = Year, y = Empl, color = Country)) +
   geom_line() +
   labs(title = "Employment development by country",
        y = "Employment (Persons in Million)"))
@@ -375,7 +374,7 @@ ggplotly(ggplot(data = subset(Employment, Country == c("Germany", "United States
 
 Interpretation
 
-This two plots are part of the analysis concerning Unemployment and Employment. In the dashboard, the user can chose between countries and country groups. Then, in these sections, the user can filter a year range and the country or the country group to compare the developments by country or country group. 
+These two plots are part of the analysis concerning Unemployment and Employment. In the dashboard, the user can choose between countries and country groups. Then, in these sections, the user can filter a year range and the country or the country group to compare the developments by country or country group.
 
 ```{r, echo=FALSE, warning=FALSE, results='hide'}
 Employment_group <- melt(subset(weo, 
@@ -433,7 +432,7 @@ ggplot(data, aes(fill = Dummy)) +
 
 Interpretation
 
-This maps shows the population in million persons, filled by a red scale. In the dashboard the user an chose a year and therefore, he or she has the option to see the world population for each year. Also, there will be table to see the population by country.
+This map shows the population of million persons, filled by a red scale. In the dashboard, the user can choose a year, and therefore, he or she has the option to see the world population for each year. Also, there will be a table to see the population by country.
 
 
 
