@@ -64,7 +64,6 @@ In the third area, the following variables are included:
  - Unemployment rate
  - Employment
  - Population
- - Current account balance
  
 <br>
 
