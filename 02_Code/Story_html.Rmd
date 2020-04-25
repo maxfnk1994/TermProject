@@ -46,6 +46,7 @@ library(gganimate)
 library(gifski)
 library(png)
 library(plotly)
+library(maps)
 ```
 
 ### Load Dataset
@@ -80,14 +81,11 @@ The datasets show years as different columns and the dimensions are wrong, which
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
 names(gdp)[10:54] <- substring(names(gdp)[10:54], 2)
-GDP_development <- subset(gdp, WEO.Subject.Code == "NGDP_R")[,c(3,4,10:50)]
-
-GDP_development <- melt(subset(gdp, WEO.Subject.Code == "NGDP_R")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
-
-GDP_development$value <- as.numeric(GDP_development$value)
-#GDP_development[!which(GDP_development$variable %in% c(2024, 2023, 2022, 20221)),]
-GDP_development$variable <- as.Date(paste0(as.character(GDP_development$variable), '-01-01'))
+GDP_development <- melt(subset(gdp, WEO.Subject.Code == "NGDP_RPCH")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
+GDP_development$value <- as.numeric(levels(GDP_development$value)[GDP_development$value])
+GDP_development$variable <- round(as.numeric(levels(GDP_development$variable)[GDP_development$variable]),0)
 names(GDP_development) <- c("WEO.Subject.Code", "Country", "Year", "GDP")
+
 
 knitr::kable(head(GDP_development), "latex", 
              booktabs = T, 
@@ -205,11 +203,11 @@ This graph shows that in all three areas the inflation was positive, so no defla
 ### GDP development per country
 
 ```{r, echo=FALSE, warning=FALSE}
-ggplotly(ggplot(data = subset(GDP_development, Country %in% c("United States", "Germany", "Albania")), 
+ggplotly(ggplot(data = subset(GDP_development, Country %in% c("United States", "Germany")), 
                 mapping = aes(x = Year, y = GDP, color = Country)) +
   geom_line() +
-  scale_y_continuous(limits = c(0,150000), labels = scales::comma) +
-  #guides(color = FALSE) +
+  scale_y_continuous(labels = scales::comma) +
+  guides(color = FALSE) +
   labs(title = "GDP development",
        y = NULL,
        x = NULL))
@@ -335,48 +333,107 @@ These two graphs will be added to the dashboard in the way that the User can cho
 
 ## People {.tabset .tabset-dropdown}
 
-### Unemployment rate
+### (Un)- Employment (rate) country
 ```{r, echo=FALSE, warning=FALSE, results='hide'}
 Unemployment <- melt(subset(gdp, WEO.Subject.Code == "LUR")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
 Unemployment$value <- as.numeric(levels(Unemployment$value)[Unemployment$value])
-names(Unemployment) <- c("WEO.Subject.Code", "Country", "Year", "Unemployment")
 Unemployment <- Unemployment %>% drop_na()
+Unemployment$variable <- round(as.numeric(levels(Unemployment$variable)[Unemployment$variable]),0)
+names(Unemployment) <- c("WEO.Subject.Code", "Country", "Year", "Empl")
+```
+
+```{r, echo=FALSE, warning=FALSE}
+ggplotly(ggplot(data = subset(Unemployment, Country == c("Germany", "United States")), mapping = aes(x = Year, y = Empl, color = Country)) +
+  geom_line() +
+  labs(title = "Unemployment development by country",
+       y = "Unemployment rate"))
 ```
 
 
-### Employment
 ```{r, echo=FALSE, warning=FALSE, results='hide'}
-Employment <- melt(subset(gdp, WEO.Subject.Code == "LUR")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
-Employment$value <- as.numeric(levels(Employment$value)[Employment$value])
-names(Employment) <- c("WEO.Subject.Code", "Country", "Year", "Employment")
-Employment
+Unemployment_group <- melt(subset(weo, 
+                                  Country.Group.Name %in% c("Advanced economies", "Major advanced economies (G7)", "Other advanced economies (Advanced economies excluding G7 and euro area)") & 
+                                    Subject.Descriptor %in% "Unemployment rate" & Units %in% "Percent of total labor force")[,c(1,2,4:44)], id = c("Country.Group.Name", "Subject.Descriptor"))
+Unemployment_group$variable <- round(as.numeric(levels(Unemployment_group$variable)[Unemployment_group$variable]),0)
+names(Unemployment_group) <- c("Country", "Subject.Descriptor", "Year", "Empl")
 ```
 
+```{r, echo=FALSE, warning=FALSE, results='hide'}
+Employment <- melt(subset(gdp, WEO.Subject.Code == "LE")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
+Employment$value <- as.numeric(levels(Employment$value)[Employment$value])
+Employment <- Employment %>% drop_na()
+Employment$variable <- round(as.numeric(levels(Employment$variable)[Employment$variable]),0)
+names(Employment) <- c("WEO.Subject.Code", "Country", "Year", "Empl")
+```
 
-### Population
+```{r, echo=FALSE, warning=FALSE}
+ggplotly(ggplot(data = subset(Employment, Country == c("Germany", "United States")), mapping = aes(x = Year, y = Empl, color = Country)) +
+  geom_line() +
+  labs(title = "Employment development by country",
+       y = "Employment (Persons in Million)"))
+```
+
+Interpretation
+
+This two plots are part of the analysis concerning Unemployment and Employment. In the dashboard, the user can chose between countries and country groups. Then, in these sections, the user can filter a year range and the country or the country group to compare the developments by country or country group. 
+
+```{r, echo=FALSE, warning=FALSE, results='hide'}
+Employment_group <- melt(subset(weo, 
+                                  Country.Group.Name %in% c("Advanced economies", "Major advanced economies (G7)", "Other advanced economies (Advanced economies excluding G7 and euro area)") & 
+                                    Subject.Descriptor %in% "Employment" & Units %in% "Index, 2000=100")[,c(1,2,4:44)], id = c("Country.Group.Name", "Subject.Descriptor"))
+Employment_group$variable <- round(as.numeric(levels(Employment_group$variable)[Employment_group$variable]),0)
+names(Employment_group) <- c("Country", "Subject.Descriptor", "Year", "Empl")
+```
+
+### Maps Population
 ```{r, echo=FALSE, warning=FALSE, results='hide'}
 Population <- melt(subset(gdp, WEO.Subject.Code == "LP")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
 Population$value <- as.numeric(levels(Population$value)[Population$value])
 names(Population) <- c("WEO.Subject.Code", "Country", "Year", "Population")
-Population
+Population <- Population %>% drop_na()
 ```
 
 
-### Current account balance
 ```{r, echo=FALSE, warning=FALSE, results='hide'}
-currentACBalance <- melt(subset(gdp, WEO.Subject.Code == "BCA")[,c(3,4,10:50)], id = c("WEO.Subject.Code", "Country"))
-currentACBalance$value <- as.numeric(levels(currentACBalance$value)[currentACBalance$value])
-names(currentACBalance) <- c("WEO.Subject.Code", "Country", "Year", "currentACBalance")
-currentACBalance
+world <- map_data("world")
+names(world)[5] <- "Country"
+# Population
+Population <- subset(gdp, WEO.Subject.Code == "LP")[,c(3,4,10:50)]
+Population$Country <- as.character(Population$Country)
+Population[which(Population$Country == "United States"),2] <- c("USA")
+for (i in 3:43) {
+  Population[,i] <- as.numeric(levels(Population[,i])[Population[,i]])
+}
+Population
+Population_Table <- melt(Population, id = c("WEO.Subject.Code", "Country"))
+names(Population_Table) <- c("WEO.Subject.Code", "Country", "Year", "Population")
+Population_Table$Year <- round(as.numeric(levels(Population_Table$Year)[Population_Table$Year]),0)
+
+# Merge
+world_poppulation <- merge(world, Population, by = "Country", sort = FALSE)
 ```
 
 
+```{r, echo=FALSE, warning=FALSE}
+data <- world_poppulation[,c(1:8)]
+names(data) <- c("Country", "long", "lat", "group", "order", "subregion", "WEO.Subject.Code", "Dummy")
+# Define map
+map <- map_data("world")
 
+# Plot
+ggplot(data, aes(fill = Dummy)) + 
+  borders("world") +
+  geom_map(aes(map_id = Country), map = map,) +
+  expand_limits(x = map$long, y = map$lat) + 
+  theme_void() +
+  scale_fill_gradient(high = "red", low = "white", guide = "colorbar", labels = scales::comma) +
+  labs(title = "Population of the world",
+       fill = "Population in Million")
+```
 
+Interpretation
 
-
-
-
+This maps shows the population in million persons, filled by a red scale. In the dashboard the user an chose a year and therefore, he or she has the option to see the world population for each year. Also, there will be table to see the population by country.
 
 
 
