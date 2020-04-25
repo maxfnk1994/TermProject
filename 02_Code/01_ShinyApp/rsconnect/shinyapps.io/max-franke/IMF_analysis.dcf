@@ -1,0 +1,12 @@
+name: IMF_analysis
+title: IMF_analysis
+username:
+account: max-franke
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2149642
+bundleId: 3063560
+url: https://max-franke.shinyapps.io/IMF_analysis/
+when: 1587825029.31286
+asMultiple: FALSE
+asStatic: FALSE
