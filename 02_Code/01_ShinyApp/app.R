@@ -139,7 +139,7 @@ for (i in 3:43) {
 }
 Population
 Population_Table <- melt(Population, id = c("WEO.Subject.Code", "Country"))
-names(Population_Table) <- c("WEO.Subject.Code", "Country", "Year", "Population")
+names(Population_Table) <- c("WEO.Subject.Code", "Country", "Year", "Population (Million)")
 Population_Table$Year <- round(as.numeric(levels(Population_Table$Year)[Population_Table$Year]),0)
 
 
@@ -299,7 +299,7 @@ server <- function(input, output) {
                      scale_y_continuous(labels = scales::comma) +
                      guides(color = FALSE) +
                      labs(title = "GDP development",
-                          y = NULL,
+                          y = "Percent change",
                           x = NULL))
     })
     
@@ -313,7 +313,7 @@ server <- function(input, output) {
                      coord_flip() +
                      guides(color = FALSE) +
                      labs(title = "Distribution of the Total Investments by country",
-                          y = "Total Investments",
+                          y = "Total Investments (Percent of GDP)",
                           x = NULL))
     })
     
@@ -353,7 +353,7 @@ server <- function(input, output) {
                      geom_col(alpha = .3, position = "dodge2") +
                      coord_flip() +
                      guides(fill = FALSE) +
-                     labs(title = "Volume of exports of goods and services",
+                     labs(title = "Volume of exports of goods (and services)",
                           x = "Percent change of volume of exports",
                           y = NULL))
     })
@@ -382,6 +382,7 @@ server <- function(input, output) {
                     geom_line() +
                     guides(color = FALSE) +
                     labs(title = "Unemployment development by country",
+                         subtitle = " Unemployment rate in percent of total labor force",
                          y = "Unemployment rate")
             } else {
                 ggplot(data = subset(Unemployment_group, Country %in% c(input$country5) & Year >= input$Year4[1] & Year <= input$Year4[2]),  
